@@ -41,8 +41,8 @@ add_action('admin_menu', 'invbit_credits_menu');
 function invbit_credits_menu() {
     add_submenu_page(
         'tools.php',              // Parent slug (tools menu)
-        'Créditos Invbit',         // Page title
-        'Créditos Invbit',         // Menu title
+        'Diseño Web Invbit',      // Page title
+        'Diseño Web',             // Menu title
         'manage_options',         // Capability
         'invbit-credits',         // Menu slug
         'invbit_credits_settings_page' // Callback function

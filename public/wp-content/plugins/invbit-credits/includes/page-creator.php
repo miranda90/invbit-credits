@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
  * @return int|false Page ID if exists, false otherwise
  */
 function invbit_credits_page_exists() {
-    $page = get_page_by_path('creditos');
+    $page = get_page_by_path('diseno-web');
     return ($page) ? $page->ID : false;
 }
 
@@ -28,8 +28,8 @@ function invbit_credits_create_or_update_page() {
     
     // Page data
     $page_data = [
-        'post_title'    => 'Créditos',
-        'post_name'     => 'creditos',
+        'post_title'    => 'Diseño web',
+        'post_name'     => 'diseno-web',
         'post_content'  => '[invbit_credits]',
         'post_status'   => 'publish',
         'post_type'     => 'page',
