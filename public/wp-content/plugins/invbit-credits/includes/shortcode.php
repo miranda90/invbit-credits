@@ -211,7 +211,7 @@ function invbit_credits_shortcode($atts) {
             padding-bottom: 10rem;
             @container invbit-credits (width >= 960px) {
                 padding: 3rem;
-                min-height: 34rem;
+                min-height: 38rem;
             }
         }
         .invbit-credits-title {
@@ -338,6 +338,7 @@ function invbit_credits_shortcode($atts) {
             align-items: center;
             gap: .5rem;
             text-decoration: none;
+            color: #1d1e1b;
             & svg {
                 --size: 1.2rem;
                 width: var(--size);
