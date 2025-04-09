@@ -318,7 +318,7 @@ function invbit_credits_shortcode($atts) {
                 font-weight: bold;
                 color: hsla(80, 5%, 11%, 1);
                 @container invbit-credits (width >= 960px) {
-                    --fs: 2rem;
+                    --fs: 1.8rem;
                 }
             }
         }
