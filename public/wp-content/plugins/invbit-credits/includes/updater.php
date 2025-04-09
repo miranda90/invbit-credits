@@ -145,10 +145,6 @@ class Invbit_Plugin_Updater {
     }
 
     private function get_repository_info() {
-        if (!empty($this->github_response)) {
-            return;
-        }
-
         $url = sprintf('https://api.github.com/repos/%s/%s/releases/latest', $this->username, $this->repository);
         
         $response = wp_remote_get($url, array(
