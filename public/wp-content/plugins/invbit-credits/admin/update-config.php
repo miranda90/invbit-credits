@@ -60,9 +60,9 @@ function invbit_updater_section_callback() {
 }
 
 function invbit_github_username_callback() {
-    $github_username = get_option('invbit_github_username', 'invbit');
+    $github_username = get_option('invbit_github_username', 'miranda90');
     echo '<input type="text" id="invbit_github_username" name="invbit_github_username" value="' . esc_attr($github_username) . '" class="regular-text">';
-    echo '<p class="description"><strong>GitHub username</strong> where the repository is hosted.<br>Example: <code>invbit</code></p>';
+    echo '<p class="description"><strong>GitHub username</strong> where the repository is hosted.<br>Example: <code>miranda90</code></p>';
 }
 
 function invbit_github_repo_callback() {

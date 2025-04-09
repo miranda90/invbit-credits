@@ -30,7 +30,7 @@ require_once INVBIT_CREDITS_PATH . 'includes/updater.php';
 require_once INVBIT_CREDITS_PATH . 'admin/update-config.php';
 
 if (class_exists('Invbit_Plugin_Updater')) {
-    $github_username = get_option('invbit_github_username', 'invbit');
+    $github_username = get_option('invbit_github_username', 'miranda90');
     $github_repo = get_option('invbit_github_repo', 'invbit-credits');
     $github_token = get_option('invbit_github_token', '');
     
