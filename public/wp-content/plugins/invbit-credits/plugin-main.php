@@ -3,7 +3,7 @@
  * Plugin Name: Invbit Credits
  * Plugin URI: https://invbit.com
  * Description: Plugin para generar una página de créditos mediante shortcode
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Invbit
  * Author URI: https://invbit.com
  * Text Domain: invbit-credits
@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 // Constants
 define('INVBIT_CREDITS_PATH', plugin_dir_path(__FILE__));
 define('INVBIT_CREDITS_URL', plugin_dir_url(__FILE__));
-define('INVBIT_CREDITS_VERSION', '1.0.1');
+define('INVBIT_CREDITS_VERSION', '1.0.2');
 define('INVBIT_CREDITS_CAPABILITY', 'manage_options');
 define('INVBIT_CREDITS_SLUG', 'diseno-web');
 
@@ -26,11 +26,29 @@ require_once INVBIT_CREDITS_PATH . 'includes/shortcode.php';
 require_once INVBIT_CREDITS_PATH . 'includes/page-creator.php';
 require_once INVBIT_CREDITS_PATH . 'admin/settings-page.php';
 
+require_once INVBIT_CREDITS_PATH . 'includes/updater.php';
+require_once INVBIT_CREDITS_PATH . 'admin/update-config.php';
+
+if (class_exists('Invbit_Plugin_Updater')) {
+    $github_username = get_option('invbit_github_username', 'invbit');
+    $github_repo = get_option('invbit_github_repo', 'invbit-credits');
+    $github_token = get_option('invbit_github_token', '');
+    
+    $updater = new Invbit_Plugin_Updater(array(
+        'slug' => 'invbit-credits',
+        'plugin_name' => 'Invbit Credits',
+        'plugin_file' => plugin_basename(__FILE__),
+        'version' => INVBIT_CREDITS_VERSION,
+        'github_username' => $github_username,
+        'github_repo' => $github_repo,
+        'github_api_key' => $github_token,
+    ));
+}
+
 // Plugin activation
 register_activation_hook(__FILE__, 'invbit_credits_activate');
 function invbit_credits_activate() {
     flush_rewrite_rules();
-    // Establecer capacidades por defecto
     update_option('invbit_credits_capabilities', INVBIT_CREDITS_CAPABILITY);
 }
 

@@ -198,5 +198,5 @@ function invbit_credits_settings_page() {
             </form>
         </div>
     </div>
-    <?php
+    <?php    
 } 
