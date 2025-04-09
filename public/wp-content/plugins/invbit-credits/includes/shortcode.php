@@ -207,6 +207,7 @@ function invbit_credits_shortcode($atts) {
             padding-bottom: 10rem;
             @media screen and (width >= 1024px) {
                 padding: 3rem;
+                min-height: 34rem;
             }
         }
         .invbit-credits-title {
