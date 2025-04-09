@@ -1,0 +1,153 @@
+/**
+ * Admin styles for InvBit Credits plugin
+ */
+
+ /* Variable collection */
+:root {
+  /* Mode 1 */
+  /* color */
+  --color-white: #ffffff;
+  --color-white-light: #ffffff;
+  --color-white-dark: #f5f5f5;
+  
+  --color-gray: #edf0f8;
+  --color-gray-light: #f8f9fc;
+  --color-gray-dark: #e0e4eb;
+  
+  --color-yellow: #ffc629;
+  --color-yellow-light: color-mix(in srgb, var(--color-yellow) 10%, var(--color-white));
+  --color-yellow-dark: #e6b225;
+  
+  --color-red: #e54360;
+  --color-red-light: color-mix(in srgb, var(--color-red) 10%, var(--color-white));
+  --color-red-dark: #cc3c56;
+  
+  --color-turquoise: #45c2b1;
+  --color-turquoise-light: color-mix(in srgb, var(--color-turquoise) 10%, var(--color-white));
+  --color-turquoise-dark: #3eafa0;
+  
+  --color-green: #c2d500;
+  --color-green-light: color-mix(in srgb, var(--color-green) 10%, var(--color-white));
+  --color-green-dark: color-mix(in srgb, var(--color-green) 40%, var(--color-black));
+  
+  --color-black: #1d1e1b;
+  --color-black-light: #2a2b27;
+  --color-black-dark: #151614;
+}
+
+.invbit-credits-admin {
+    margin-top: 20px;
+}
+
+.invbit-credits-admin-section {
+  max-width: 1200px;
+    background: #fff;
+    border-radius: 1rem;
+    margin-bottom: 20px;
+    padding: 2rem;
+}
+
+.invbit-credits-admin-section h2 {
+  --fs: 1.5rem;
+  --spacing: 1rem;
+  line-height: 1.2;
+  margin-top: 0;
+  padding-bottom: var(--spacing);
+  margin-bottom: var(--spacing);
+  border-bottom: 1px solid #eee;
+  color: #23282d;
+  font-size: var(--fs);
+}
+
+/* Feature Styles */
+.invbit-credits-features-grid {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.invbit-credits-feature-category h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #23282d;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.invbit-credits-feature-items,
+.invbit-credits-project-types  {
+  --gap: .5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+
+.invbit-credits-feature-item,
+.invbit-credits-project-type-label {
+  --pd: .5rem 1.3rem;
+  --rounded: 9999px;
+  --fs: .875rem;
+  --border: #e5e5e5;
+  --border-width: 1px;
+  --bg: #fff;
+  --color: #23282d;
+  --transition: color .3s ease;
+  border: var(--border-width) solid var(--border);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  padding: var(--pd);
+  border-radius: var(--rounded);
+  font-size: var(--fs);
+  color: var(--color);
+  background-color: var(--bg);
+  transition: var(--transition);
+  cursor: pointer;
+  &:hover {
+    --border: var(--color-green);
+    --color: var(--color-black);
+  }
+  &:has(input:checked) {
+    --border: var(--color-green);
+    --bg: var(--color-green-light);
+    --color: var(--color-green-dark);
+  }
+  input {
+    display: none;
+  }
+}
+
+.invbit-credits-admin-actions {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f1f1f1;
+    border-radius: 3px;
+    text-align: right;
+}
+
+.invbit-credits-admin-actions .description {
+    float: left;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.invbit-credits-admin p.submit {
+    margin-top: 20px;
+    padding: 0;
+}
+
+/* Editor customization */
+.invbit-credits-admin .wp-editor-container {
+    border: 1px solid #ddd;
+}
+
+/* Form elements */
+.invbit-credits-admin input[type="text"] {
+  width: 100%;
+  max-width: 768px;
+  border: 1px solid #ddd;
+  border-radius: .5rem;
+  font-size: 1.2rem;
+  padding: .5rem 1rem;
+}
