@@ -177,16 +177,20 @@ function invbit_credits_shortcode($atts) {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            container-type: inline-size;
+            container-name: invbit-credits;
         }
         .invbit-credits-row {
             --gap: 2rem;
             display: flex;
             flex-direction: column;
             gap: var(--gap);
-            @media screen and (width >= 1024px) {
-                --gap: 6rem;
-                display: grid;
-                grid-template-columns: 1fr 460px;
+            @container invbit-credits (width >= 960px) {
+                @media (width >= 1280px) {
+                    --gap: 6rem;
+                    display: grid;
+                    grid-template-columns: 1fr 460px;
+                }
             }
         }
         .invbit-credits-column {
@@ -201,11 +205,11 @@ function invbit_credits_shortcode($atts) {
             flex-direction: column;
             align-items: flex-start;
             background-image: url(<?php echo esc_url(INVBIT_CREDITS_URL . 'assets/card-invbit-bubble.svg'); ?>);
-            background-size: 100% auto;
+            background-size: 400px auto;
             background-position: 0 90%;
-            background-repeat: no-repeat;
+            background-repeat: repeat-x;
             padding-bottom: 10rem;
-            @media screen and (width >= 1024px) {
+            @container invbit-credits (width >= 960px) {
                 padding: 3rem;
                 min-height: 34rem;
             }
@@ -217,11 +221,13 @@ function invbit_credits_shortcode($atts) {
             font-weight: 700;
             margin-top: 0;
             margin-bottom: 1rem;
-            @media screen and (width >= 1024px) {
-                --fs: 3rem;
+            @container invbit-credits (width >= 960px) {
+                @media (width >= 1280px) {
+                    --fs: 3rem;
+                }
             }
-            span {
-                color: var(--primary, var(--plugin-color));
+            & span {
+                color: var(--primary, var(--mfn-woo-themecolor, var(--plugin-color)));
             }
         }
         .invbit-credits-project-type {
@@ -233,14 +239,14 @@ function invbit_credits_shortcode($atts) {
             line-height: 1.6;
             font-size: var(--fs);
             margin-bottom: 1rem;
-            @media screen and (width >= 1024px) {
+            @container invbit-credits (width >= 960px) {
                 --fs: 1.1rem;
             }
-            strong {
+            & strong {
                 font-weight: 700;
             }
-            a {
-                color: var(--primary, var(--plugin-color));
+            & a {
+                color: var(--primary, var(--mfn-woo-themecolor, var(--plugin-color)));
                 text-decoration: underline;
             }
         }
@@ -258,7 +264,7 @@ function invbit_credits_shortcode($atts) {
             display: flex;
             flex-wrap: wrap;
             gap: var(--gap);
-            @media screen and (width >= 1024px) {
+            @container invbit-credits (width >= 960px) {
                 --mt: 3rem;
                 --gap: 1.5rem 2.5rem;
             }
@@ -272,7 +278,7 @@ function invbit_credits_shortcode($atts) {
             position: relative;
             display: flex;
             align-items: center;
-            @media screen and (width >= 1024px) {
+            @container invbit-credits (width >= 960px) {
                 --fs: 1.5rem;
             }
             &::before {
@@ -281,14 +287,14 @@ function invbit_credits_shortcode($atts) {
                 position: relative;
                 display: inline-flex;
                 background: black;
-                background-color: var(--primary, var(--plugin-color));
+                background-color: var(--primary, var(--mfn-woo-themecolor, var(--plugin-color)));
                 width: var(--size);
                 height: var(--size);
                 border-radius: 50%;
                 margin-right: .5rem;
-                @media screen and (width >= 1024px) {
-                --size: .7rem;
-            }
+                @container invbit-credits (width >= 960px) {
+                    --size: .7rem;
+                }
             }
         }
 
@@ -299,19 +305,19 @@ function invbit_credits_shortcode($atts) {
             --max-w: 150px;
             max-width: var(--max-w);
             height: auto;
-            @media screen and (width >= 1024px) {
-                --max-w: 250px;
+            @container invbit-credits (width >= 960px) or (width >= 1280px) {
+                --max-w: 200px;
             }
         }
         .invbit-credits-slogan {
-            h3 {
+            & h3 {
                 --fs: 1.4rem;
                 margin-bottom: 3rem;
                 line-height: 1.2;
                 font-size: var(--fs);
                 font-weight: bold;
                 color: hsla(80, 5%, 11%, 1);
-                @media screen and (width >= 1024px) {
+                @container invbit-credits (width >= 960px) {
                     --fs: 2rem;
                 }
             }
@@ -332,7 +338,7 @@ function invbit_credits_shortcode($atts) {
             align-items: center;
             gap: .5rem;
             text-decoration: none;
-            svg {
+            & svg {
                 --size: 1.2rem;
                 width: var(--size);
                 height: var(--size);
