@@ -3,7 +3,7 @@
  * Plugin Name: Invbit Credits
  * Plugin URI: https://invbit.com
  * Description: Plugin para generar una página de créditos mediante shortcode
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Invbit
  * Author URI: https://invbit.com
  * Text Domain: invbit-credits
@@ -17,7 +17,9 @@ if (!defined('ABSPATH')) {
 // Constants
 define('INVBIT_CREDITS_PATH', plugin_dir_path(__FILE__));
 define('INVBIT_CREDITS_URL', plugin_dir_url(__FILE__));
-define('INVBIT_CREDITS_VERSION', '1.0.0');
+define('INVBIT_CREDITS_VERSION', '1.0.1');
+define('INVBIT_CREDITS_CAPABILITY', 'manage_options');
+define('INVBIT_CREDITS_SLUG', 'diseno-web');
 
 // Include files
 require_once INVBIT_CREDITS_PATH . 'includes/shortcode.php';
@@ -28,6 +30,8 @@ require_once INVBIT_CREDITS_PATH . 'admin/settings-page.php';
 register_activation_hook(__FILE__, 'invbit_credits_activate');
 function invbit_credits_activate() {
     flush_rewrite_rules();
+    // Establecer capacidades por defecto
+    update_option('invbit_credits_capabilities', INVBIT_CREDITS_CAPABILITY);
 }
 
 // Plugin deactivation
@@ -40,12 +44,12 @@ function invbit_credits_deactivate() {
 add_action('admin_menu', 'invbit_credits_menu');
 function invbit_credits_menu() {
     add_submenu_page(
-        'tools.php',              // Parent slug (tools menu)
-        'Diseño Web Invbit',      // Page title
-        'Diseño Web',             // Menu title
-        'manage_options',         // Capability
-        'invbit-credits',         // Menu slug
-        'invbit_credits_settings_page' // Callback function
+        'tools.php',
+        'Créditos Invbit',
+        'Créditos Invbit',
+        INVBIT_CREDITS_CAPABILITY,
+        'invbit-credits',
+        'invbit_credits_settings_page'
     );
 }
 
@@ -56,13 +60,15 @@ function invbit_credits_admin_assets($hook) {
         return;
     }
     
-    // Load admin styles
-    wp_enqueue_style(
-        'invbit-credits-admin-style',
-        INVBIT_CREDITS_URL . 'assets/admin-style.css',
-        [],
-        INVBIT_CREDITS_VERSION
-    );
+    $admin_css = INVBIT_CREDITS_URL . 'assets/admin-style.css';
+    if (file_exists(INVBIT_CREDITS_PATH . 'assets/admin-style.css')) {
+        wp_enqueue_style(
+            'invbit-credits-admin-style',
+            $admin_css,
+            [],
+            INVBIT_CREDITS_VERSION
+        );
+    }
     
     // Load WordPress styles
     wp_enqueue_style('wp-color-picker');
