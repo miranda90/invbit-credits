@@ -3,7 +3,7 @@
  * Plugin Name: Invbit Credits
  * Plugin URI: https://invbit.com
  * Description: Plugin para generar una página de créditos mediante shortcode
- * Version: 1.0.4
+ * Version: 1.0.2
  * Author: Invbit
  * Author URI: https://invbit.com
  * Text Domain: invbit-credits

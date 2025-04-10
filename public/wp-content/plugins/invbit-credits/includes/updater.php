@@ -126,12 +126,17 @@ class Invbit_Plugin_Updater {
         $this->get_repository_info();
 
         if (isset($this->github_response['tag_name']) && version_compare($this->github_response['tag_name'], $this->version, '>')) {
+            // Volvemos a usar la URL zipball directa de la API
+            $download_url = $this->github_response['zipball_url'];
+            
+            error_log('URL de descarga del plugin: ' . $download_url);
+            
             $plugin = array(
                 'slug' => $this->slug,
                 'plugin' => $this->basename,
                 'new_version' => $this->github_response['tag_name'],
-                'url' => $this->plugin_data['PluginURI'],
-                'package' => $this->github_response['zipball_url'],
+                'url' => $this->plugin_data['PluginURI'] ?? '',
+                'package' => $download_url,
             );
 
             if (!empty($this->authorize_token)) {
@@ -223,14 +228,202 @@ class Invbit_Plugin_Updater {
             return $response;
         }
 
+        // Registrar información para debugging
+        error_log('Invbit Credits - Iniciando proceso de actualización');
+        error_log('Destino de descarga: ' . $result['destination']);
+        
+        // Get the plugin directory name
         $plugin_folder = WP_PLUGIN_DIR . '/' . dirname($this->basename);
-        $wp_filesystem->move($result['destination'], $plugin_folder);
+        error_log('Carpeta destino del plugin: ' . $plugin_folder);
+
+        // Cuando descargamos un archivo desde GitHub mediante nuestro URL personalizado,
+        // la estructura será nombrerepo-version/ (por ejemplo: invbit-credits-1.0.3/)
+        $source_files = $wp_filesystem->dirlist($result['destination']);
+        error_log('Archivos en directorio de descarga: ' . print_r($source_files, true));
+        
+        // Encontrar la carpeta principal del repositorio descargado
+        $github_folder = '';
+        foreach ($source_files as $file => $info) {
+            if ($info['type'] === 'd') {
+                $github_folder = $result['destination'] . '/' . $file;
+                error_log('Encontrada carpeta principal: ' . $github_folder);
+                break;
+            }
+        }
+        
+        if (!empty($github_folder)) {
+            // Ahora necesitamos encontrar la carpeta del plugin dentro de la estructura del repo
+            if ($wp_filesystem->exists($github_folder . '/public/wp-content/plugins/' . $this->slug)) {
+                // Si existe la estructura completa (public/wp-content/plugins/invbit-credits)
+                $plugin_source = $github_folder . '/public/wp-content/plugins/' . $this->slug;
+                error_log('Encontrada carpeta del plugin en estructura completa: ' . $plugin_source);
+            } else {
+                // Si el plugin está directamente en la raíz del repositorio
+                $plugin_source = $github_folder;
+                error_log('Usando la raíz del repositorio como fuente: ' . $plugin_source);
+            }
+            
+            // Verificar si la carpeta origen tiene archivos de plugin válidos
+            if ($this->is_plugin_directory($plugin_source, $wp_filesystem)) {
+                error_log('La carpeta origen contiene archivos de plugin válidos');
+                
+                // Eliminar la carpeta de destino si existe
+                if ($wp_filesystem->exists($plugin_folder)) {
+                    error_log('Eliminando carpeta de plugin existente: ' . $plugin_folder);
+                    $wp_filesystem->delete($plugin_folder, true);
+                }
+                
+                // Mover los archivos del plugin a la ubicación correcta
+                error_log('Moviendo de ' . $plugin_source . ' a ' . $plugin_folder);
+                $result_move = $wp_filesystem->move($plugin_source, $plugin_folder);
+                error_log('Resultado del movimiento: ' . ($result_move ? 'éxito' : 'fallo'));
+                
+                if (!$result_move) {
+                    // Si falla el movimiento, intentar copiar
+                    error_log('Fallo al mover, intentando copiar archivos individualmente');
+                    $this->copy_directory($plugin_source, $plugin_folder, $wp_filesystem);
+                }
+            } else {
+                // Buscar recursivamente la carpeta del plugin
+                error_log('La carpeta origen no contiene archivos de plugin válidos, buscando recursivamente');
+                $plugin_source = $this->find_plugin_directory($github_folder, $wp_filesystem);
+                
+                if ($plugin_source) {
+                    error_log('Encontrada carpeta del plugin en: ' . $plugin_source);
+                    
+                    // Eliminar la carpeta de destino si existe
+                    if ($wp_filesystem->exists($plugin_folder)) {
+                        error_log('Eliminando carpeta de plugin existente: ' . $plugin_folder);
+                        $wp_filesystem->delete($plugin_folder, true);
+                    }
+                    
+                    // Mover los archivos del plugin a la ubicación correcta
+                    error_log('Moviendo de ' . $plugin_source . ' a ' . $plugin_folder);
+                    $result_move = $wp_filesystem->move($plugin_source, $plugin_folder);
+                    error_log('Resultado del movimiento: ' . ($result_move ? 'éxito' : 'fallo'));
+                    
+                    if (!$result_move) {
+                        // Si falla el movimiento, intentar copiar
+                        error_log('Fallo al mover, intentando copiar archivos individualmente');
+                        $this->copy_directory($plugin_source, $plugin_folder, $wp_filesystem);
+                    }
+                } else {
+                    error_log('No se pudo encontrar la carpeta del plugin en la estructura descargada');
+                    return new WP_Error('plugin_not_found', 'No se pudo encontrar la carpeta del plugin en el archivo descargado.');
+                }
+            }
+        } else {
+            error_log('No se encontró ninguna carpeta en el directorio de descarga');
+            return new WP_Error('download_failed', 'La descarga del plugin no generó una estructura de directorios válida.');
+        }
+        
+        // Limpiar directorio temporal
+        if ($wp_filesystem->exists($result['destination'])) {
+            error_log('Limpiando directorio temporal: ' . $result['destination']);
+            $wp_filesystem->delete($result['destination'], true);
+        }
+        
         $result['destination'] = $plugin_folder;
+        error_log('Actualizando resultado[destination]: ' . $plugin_folder);
 
         if ($this->active) {
+            error_log('Activando plugin: ' . $this->basename);
             activate_plugin($this->basename);
         }
 
+        error_log('Proceso de actualización completado');
         return $result;
+    }
+    
+    /**
+     * Busca recursivamente el directorio del plugin dentro de la estructura descargada
+     */
+    private function find_plugin_directory($directory, $wp_filesystem) {
+        error_log('Buscando en directorio: ' . $directory);
+        
+        // Verificar si el directorio actual es la carpeta del plugin
+        if ($this->is_plugin_directory($directory, $wp_filesystem)) {
+            return $directory;
+        }
+        
+        // Obtener todos los subdirectorios
+        $files = $wp_filesystem->dirlist($directory);
+        
+        if (is_array($files)) {
+            foreach ($files as $file => $info) {
+                // Solo procesar directorios
+                if ($info['type'] === 'd') {
+                    $full_path = $directory . '/' . $file;
+                    
+                    // Verificar primero si este directorio es el plugin
+                    if ($this->is_plugin_directory($full_path, $wp_filesystem)) {
+                        return $full_path;
+                    }
+                    
+                    // Si la ruta contiene 'public/wp-content/plugins/invbit-credits', esta podría ser nuestra carpeta
+                    if (strpos($full_path, 'public/wp-content/plugins/' . $this->slug) !== false) {
+                        return $full_path;
+                    }
+                    
+                    // Buscar recursivamente en subdirectorios
+                    $found = $this->find_plugin_directory($full_path, $wp_filesystem);
+                    if ($found) {
+                        return $found;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Verifica si un directorio es la carpeta del plugin
+     */
+    private function is_plugin_directory($directory, $wp_filesystem) {
+        // Verificar la existencia de archivos clave que indican que es la carpeta del plugin
+        $plugin_files = array(
+            'plugin-main.php',
+            'includes/shortcode.php',
+            'includes/page-creator.php'
+        );
+        
+        foreach ($plugin_files as $file) {
+            if (!$wp_filesystem->exists($directory . '/' . $file)) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Copia un directorio completo con su contenido (alternativa a move)
+     */
+    private function copy_directory($source, $destination, $wp_filesystem) {
+        error_log('Copiando directorio de ' . $source . ' a ' . $destination);
+        
+        // Crear el directorio destino si no existe
+        if (!$wp_filesystem->exists($destination)) {
+            $wp_filesystem->mkdir($destination);
+        }
+        
+        // Obtener todos los archivos y carpetas
+        $files = $wp_filesystem->dirlist($source);
+        
+        foreach ($files as $file => $info) {
+            $source_path = $source . '/' . $file;
+            $dest_path = $destination . '/' . $file;
+            
+            if ($info['type'] === 'd') {
+                // Es un directorio, copiar recursivamente
+                $this->copy_directory($source_path, $dest_path, $wp_filesystem);
+            } else {
+                // Es un archivo, copiarlo
+                $wp_filesystem->copy($source_path, $dest_path, true);
+            }
+        }
+        
+        return true;
     }
 } 
