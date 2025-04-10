@@ -227,7 +227,7 @@ function invbit_credits_shortcode($atts) {
                 }
             }
             & span {
-                color: var(--primary, var(--mfn-woo-themecolor, var(--plugin-color)));
+                color: var(--mfn-woo-themecolor, var(--primary, var(--plugin-color)));
             }
         }
         .invbit-credits-project-type {
@@ -246,7 +246,7 @@ function invbit_credits_shortcode($atts) {
                 font-weight: 700;
             }
             & a {
-                color: var(--primary, var(--mfn-woo-themecolor, var(--plugin-color)));
+                color: var(--mfn-woo-themecolor, var(--primary, var(--plugin-color)));
                 text-decoration: underline;
             }
         }
@@ -287,7 +287,7 @@ function invbit_credits_shortcode($atts) {
                 position: relative;
                 display: inline-flex;
                 background: black;
-                background-color: var(--primary, var(--mfn-woo-themecolor, var(--plugin-color)));
+                background-color: var(--mfn-woo-themecolor, var(--primary, var(--plugin-color)));
                 width: var(--size);
                 height: var(--size);
                 border-radius: 50%;
