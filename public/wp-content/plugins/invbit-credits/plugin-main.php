@@ -9,23 +9,19 @@
  * Text Domain: invbit-credits
  */
 
-// Direct access prevention
 if (!defined('ABSPATH')) {
     exit;
 }
 
-// Constants
 define('INVBIT_CREDITS_PATH', plugin_dir_path(__FILE__));
 define('INVBIT_CREDITS_URL', plugin_dir_url(__FILE__));
 define('INVBIT_CREDITS_VERSION', '1.0.2');
 define('INVBIT_CREDITS_CAPABILITY', 'manage_options');
 define('INVBIT_CREDITS_SLUG', 'diseno-web');
 
-// Include files
 require_once INVBIT_CREDITS_PATH . 'includes/shortcode.php';
 require_once INVBIT_CREDITS_PATH . 'includes/page-creator.php';
 require_once INVBIT_CREDITS_PATH . 'admin/settings-page.php';
-
 require_once INVBIT_CREDITS_PATH . 'includes/updater.php';
 require_once INVBIT_CREDITS_PATH . 'admin/update-config.php';
 
@@ -45,20 +41,17 @@ if (class_exists('Invbit_Plugin_Updater')) {
     ));
 }
 
-// Plugin activation
 register_activation_hook(__FILE__, 'invbit_credits_activate');
 function invbit_credits_activate() {
     flush_rewrite_rules();
     update_option('invbit_credits_capabilities', INVBIT_CREDITS_CAPABILITY);
 }
 
-// Plugin deactivation
 register_deactivation_hook(__FILE__, 'invbit_credits_deactivate');
 function invbit_credits_deactivate() {
     flush_rewrite_rules();
 }
 
-// Admin menu in Tools submenu
 add_action('admin_menu', 'invbit_credits_menu');
 function invbit_credits_menu() {
     add_submenu_page(
@@ -71,7 +64,6 @@ function invbit_credits_menu() {
     );
 }
 
-// Admin assets
 add_action('admin_enqueue_scripts', 'invbit_credits_admin_assets');
 function invbit_credits_admin_assets($hook) {
     if ('tools_page_invbit-credits' !== $hook) {
@@ -88,7 +80,6 @@ function invbit_credits_admin_assets($hook) {
         );
     }
     
-    // Load WordPress styles
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_script('wp-color-picker');
     wp_enqueue_editor();

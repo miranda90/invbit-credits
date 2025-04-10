@@ -96,7 +96,7 @@ function invbit_display_update_info() {
             var $status = $('#update-status');
             
             $button.prop('disabled', true);
-            $status.html('<span class="spinner is-active" style="float:none;margin:0 10px;"></span> Checking for updates...');
+            $status.html('<span class="spinner is-active" style="float:none;margin:0 10px;"></span> Comprobando actualizaciones...');
             
             $.ajax({
                 url: ajaxurl,
@@ -113,7 +113,7 @@ function invbit_display_update_info() {
                     }
                 },
                 error: function() {
-                    $status.html('<span style="color:red;">Error checking for updates.</span>');
+                    $status.html('<span style="color:red;">Error al comprobar actualizaciones.</span>');
                 },
                 complete: function() {
                     $button.prop('disabled', false);
@@ -128,13 +128,13 @@ function invbit_display_update_info() {
 function invbit_ajax_check_updates() {
     if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'invbit_check_updates_nonce')) {
         wp_send_json_error(array(
-            'message' => 'Security error. Please reload the page and try again.'
+            'message' => 'Error de seguridad. Por favor, recarga la página y vuelve a intentarlo.'
         ));
     }
     
     if (!current_user_can(INVBIT_CREDITS_CAPABILITY)) {
         wp_send_json_error(array(
-            'message' => 'You do not have permission to perform this action.'
+            'message' => 'No tienes permisos para realizar esta acción.'
         ));
     }
     
@@ -147,13 +147,13 @@ function invbit_ajax_check_updates() {
     if (isset($update_plugins->response[$plugin_file])) {
         $new_version = $update_plugins->response[$plugin_file]->new_version;
         wp_send_json_success(array(
-            'message' => "New version available! Version $new_version ready to install.",
+            'message' => "¡Nueva versión disponible! Versión $new_version lista para instalar.",
             'version' => $new_version,
             'has_update' => true
         ));
     } else {
         wp_send_json_success(array(
-            'message' => 'You are using the latest version available.',
+            'message' => 'Ya está instalada la versión más actualizada.',
             'version' => INVBIT_CREDITS_VERSION,
             'has_update' => false
         ));

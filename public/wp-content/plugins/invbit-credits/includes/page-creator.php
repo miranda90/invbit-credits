@@ -14,13 +14,12 @@ if (!defined('ABSPATH')) {
  * @return int|false Page ID if exists, false otherwise
  */
 function invbit_credits_page_exists() {
-    $page_slug = INVBIT_CREDITS_SLUG; // Usa la constante en lugar de texto hardcodeado
+    $page_slug = INVBIT_CREDITS_SLUG;
     $page = get_page_by_path($page_slug);
     
-    // Verificar colisiones con otros tipos de post
     $existing_post = get_page_by_path($page_slug, OBJECT, ['post', 'product', 'attachment']);
     if ($existing_post && $existing_post->post_type !== 'page') {
-        return false; // Hay colisión con otro tipo de contenido
+        return false;
     }
     
     return ($page) ? $page->ID : false;
@@ -32,7 +31,6 @@ function invbit_credits_page_exists() {
  * @return int|WP_Error ID of created/updated page or error
  */
 function invbit_credits_create_or_update_page() {
-    // Verificar permisos
     if (!current_user_can(INVBIT_CREDITS_CAPABILITY)) {
         return new WP_Error('insufficient_permissions', __('No tienes permisos para crear o actualizar páginas.', 'invbit-credits'));
     }
@@ -77,7 +75,6 @@ function invbit_credits_create_or_update_page() {
  * @return array Operation result
  */
 function invbit_credits_save_data() {
-    // Verificar permisos
     if (!current_user_can(INVBIT_CREDITS_CAPABILITY)) {
         return [
             'success' => false,
