@@ -178,13 +178,13 @@ function invbit_credits_shortcode($atts) {
         .invbit-credits-container {
             --py: 3rem;
             width: 100%;
-            max-width: 1200px;
             margin: 0 auto;
             padding: var(--py) 0;
             container-type: inline-size;
             container-name: invbit-credits;
-            @media (width >= 1280px) {
+            @media (width >= 1240px) {
                 --py: 6rem;
+                min-width: 1200px;
             }
         }
         .invbit-credits-row {
@@ -192,13 +192,15 @@ function invbit_credits_shortcode($atts) {
             display: flex;
             flex-direction: column;
             gap: var(--gap);
-            @container invbit-credits (width >= 960px) {
-                @media (width >= 1280px) {
-                    --gap: 6rem;
-                    display: grid;
-                    grid-template-columns: 1fr 460px;
-                }
+            @media (width >= 960px) {
+                --gap: 4rem;
+                display: grid;
+                grid-template-columns: 1fr 20rem;
             }
+            @media (width >= 1240px) {
+                grid-template-columns: 1fr 460px;
+            }
+
         }
         .invbit-credits-column {
             flex: 1;
@@ -229,7 +231,7 @@ function invbit_credits_shortcode($atts) {
             margin-top: 0;
             margin-bottom: 1rem;
             @container invbit-credits (width >= 960px) {
-                @media (width >= 1280px) {
+                @media (width >= 1240px) {
                     --fs: 3.2rem;
                 }
             }
@@ -312,7 +314,7 @@ function invbit_credits_shortcode($atts) {
             --max-w: 150px;
             max-width: var(--max-w);
             height: auto;
-            @container invbit-credits (width >= 960px) or (width >= 1280px) {
+            @container invbit-credits (width >= 960px) or (width >= 1240px) {
                 --max-w: 200px;
             }
         }
