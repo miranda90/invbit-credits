@@ -167,6 +167,11 @@ function invbit_credits_shortcode($atts) {
                         </p>
                     </div>
                 </div>
+                <div id="bubblesBlock">
+                    <?php for($i = 0; $i < 40; $i++) : ?>
+                        <span class="bubble"></span>
+                    <?php endfor; ?>
+                </div>
             </aside>
         </div>
     </section>
@@ -174,6 +179,13 @@ function invbit_credits_shortcode($atts) {
     <style>
         :root {
             --plugin-color: #c2d500;
+
+            /* Bubble colors */
+            --color-yellow: #ffc629;
+            --color-red: #e54360;
+            --color-turquoise: #45c2b1;
+            --color-green: #c2d500;
+            --color-gray-dark: #e0e4eb;
         }
         .invbit-credits-container {
             --py: 3rem;
@@ -213,11 +225,12 @@ function invbit_credits_shortcode($atts) {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            background-image: url(<?php echo esc_url(INVBIT_CREDITS_URL . 'assets/card-invbit-bubble.svg'); ?>);
             background-size: 400px auto;
             background-position: 0 90%;
             background-repeat: repeat-x;
             padding-bottom: 10rem;
+            position: relative;
+            overflow: hidden;
             @container invbit-credits (width >= 960px) {
                 padding: 3rem;
                 min-height: 38rem;
@@ -336,6 +349,7 @@ function invbit_credits_shortcode($atts) {
             display: flex;
             flex-direction: column;
             gap: .8rem;
+            position: relative;
         }
         .invbit-credits-contact p {
             --fs: 1rem;
@@ -356,6 +370,57 @@ function invbit_credits_shortcode($atts) {
         }
         .invbit-credits-contact a:hover {
             text-decoration: underline;
+        }
+        
+        /* Estilos para los bubbles */
+        #bubblesBlock {
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            position: absolute;
+            bottom: 4rem;
+            left: -4rem;
+        }
+        .bubble {
+            --size: 2rem;
+            width: var(--size);
+            height: var(--size);
+            border-radius: 50%;
+            border: 1px solid var(--color-gray-dark);
+            display: inline-block;
+            background-color: transparent;
+            transition: border-color 0.2s ease;
+        }
+        
+        /* Asignamos animaciones aleatorias a las burbujas */
+        .bubble:nth-child(7n) { animation: bubbleColor1 3.3s infinite 0.1s; }
+        .bubble:nth-child(13n) { animation: bubbleColor2 2.7s infinite 0.3s; }
+        .bubble:nth-child(11n) { animation: bubbleColor3 4.1s infinite 0.2s; }
+        .bubble:nth-child(5n) { animation: bubbleColor4 2.9s infinite 0.1s; }
+        .bubble:nth-child(3n) { animation: bubbleColor5 3.7s infinite 0.2s; }
+        
+        @keyframes bubbleColor1 {
+            0%, 60%, 100% { border-color: var(--color-gray-dark); }
+            30% { border-color: var(--color-yellow); }
+        }
+        
+        @keyframes bubbleColor2 {
+            0%, 70%, 100% { border-color: var(--color-gray-dark); }
+            35% { border-color: var(--color-red); }
+        }
+        
+        @keyframes bubbleColor3 {
+            0%, 65%, 100% { border-color: var(--color-gray-dark); }
+            25% { border-color: var(--color-turquoise); }
+        }
+        
+        @keyframes bubbleColor4 {
+            0%, 75%, 100% { border-color: var(--color-gray-dark); }
+            20% { border-color: var(--color-green); }
+        }
+        
+        @keyframes bubbleColor5 {
+            0%, 80%, 100% { border-color: var(--color-gray-dark); }
+            40% { border-color: var(--color-yellow); }
         }
     </style>
     <?php
