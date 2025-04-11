@@ -176,11 +176,16 @@ function invbit_credits_shortcode($atts) {
             --plugin-color: #c2d500;
         }
         .invbit-credits-container {
+            --py: 3rem;
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: var(--py) 0;
             container-type: inline-size;
             container-name: invbit-credits;
+            @media (width >= 1280px) {
+                --py: 6rem;
+            }
         }
         .invbit-credits-row {
             --gap: 2rem;
