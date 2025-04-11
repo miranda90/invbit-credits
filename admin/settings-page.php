@@ -32,6 +32,9 @@ function invbit_credits_settings_page() {
         }
     }
     
+    // Determinar la pestaña activa
+    $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'settings';
+    
     // Check if page exists
     $page_exists = invbit_credits_page_exists();
     
@@ -95,6 +98,16 @@ function invbit_credits_settings_page() {
             </div>
         <?php endif; ?>
         
+        <h2 class="nav-tab-wrapper">
+            <a href="?page=invbit-credits&tab=settings" class="nav-tab <?php echo $active_tab === 'settings' ? 'nav-tab-active' : ''; ?>">
+                <?php echo esc_html__('Configuración', 'invbit-credits'); ?>
+            </a>
+            <a href="?page=invbit-credits&tab=updates" class="nav-tab <?php echo $active_tab === 'updates' ? 'nav-tab-active' : ''; ?>">
+                <?php echo esc_html__('Actualizaciones', 'invbit-credits'); ?>
+            </a>
+        </h2>
+        
+        <?php if ($active_tab === 'settings') : ?>
         <div class="invbit-credits-admin">
             <form method="post" action="">
                 <?php wp_nonce_field('invbit_credits_save', 'invbit_credits_nonce'); ?>
@@ -197,6 +210,18 @@ function invbit_credits_settings_page() {
                 </div>
             </form>
         </div>
+        <?php endif; ?>
+        
+        <?php if ($active_tab === 'updates' && function_exists('invbit_display_update_info')) : ?>
+        <div class="invbit-credits-admin-updates">
+            <div class="invbit-credits-admin-section">
+                <h2><?php echo esc_html__('Gestión de Actualizaciones', 'invbit-credits'); ?></h2>
+                <p><?php echo esc_html__('Configuración para actualizar este plugin desde GitHub.', 'invbit-credits'); ?></p>
+                
+                <?php invbit_display_update_info(); ?>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
     <?php    
 } 
