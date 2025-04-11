@@ -233,17 +233,22 @@ function invbit_ajax_check_updates() {
     $api_url = sprintf('https://api.github.com/repos/%s/%s/releases/latest', $github_username, $github_repo);
     $headers = array(
         'Accept' => 'application/vnd.github.v3+json',
-        'User-Agent' => 'WordPress/' . get_bloginfo('version') . ($force_update ? ' - AJAX Forced Check' : ''),
+        'User-Agent' => 'WordPress/' . get_bloginfo('version') . ' - Plugin Invbit Credits' . ($force_update ? ' (AJAX Forced Check)' : ''),
         'Cache-Control' => 'no-cache, no-store, must-revalidate',
         'Pragma' => 'no-cache',
         'Expires' => '0',
     );
     
     if (!empty($github_token)) {
+        error_log('Invbit Credits - Usando token de autenticación de GitHub');
         $headers['Authorization'] = 'token ' . $github_token;
+    } else {
+        error_log('Invbit Credits - No se ha configurado token de GitHub (limitado a 60 peticiones/hora)');
     }
     
     $api_url .= '?t=' . time();
+    error_log('Invbit Credits - Consultando API: ' . $api_url);
+    error_log('Invbit Credits - Headers: ' . print_r($headers, true));
     
     $response = wp_remote_get($api_url, array(
         'headers' => $headers,
