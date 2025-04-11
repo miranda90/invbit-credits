@@ -95,7 +95,7 @@ function invbit_credits_shortcode($atts) {
                     <ul class="invbit-credits-feature-list">
                         <?php foreach ($feature_categories as $category_key => $category) : ?>
                             <?php foreach ($category['items'] as $item) : 
-                                $item_key = sanitize_title($item);
+                                $item_key = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $item));
                                 $is_checked = isset($options['features'][$category_key]) && 
                                               is_array($options['features'][$category_key]) &&
                                               in_array($item_key, $options['features'][$category_key], true);
