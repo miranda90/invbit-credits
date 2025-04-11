@@ -230,7 +230,7 @@ function invbit_credits_shortcode($atts) {
             margin-bottom: 1rem;
             @container invbit-credits (width >= 960px) {
                 @media (width >= 1280px) {
-                    --fs: 3rem;
+                    --fs: 3.2rem;
                 }
             }
             & span {
