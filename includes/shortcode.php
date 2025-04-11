@@ -377,8 +377,11 @@ function invbit_credits_shortcode($atts) {
             display: grid;
             grid-template-columns: repeat(20, 1fr);
             position: absolute;
-            bottom: 4rem;
+            bottom: 3rem;
             left: -4rem;
+            @media (width >= 960px) {
+                bottom: 4rem;
+            }
         }
         .bubble {
             --size: 2rem;
