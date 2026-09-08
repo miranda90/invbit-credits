@@ -1,0 +1,257 @@
+# English translation for Invbit Credits.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Invbit Credits package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Invbit Credits 1.0.9\n"
+"Report-Msgid-Bugs-To: info@invbit.com\n"
+"POT-Creation-Date: 2026-09-08 10:32+0200\n"
+"PO-Revision-Date: 2026-09-08 10:30+0200\n"
+"Last-Translator: Invbit <info@invbit.com>\n"
+"Language-Team: English <info@invbit.com>\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: includes/shortcode.php:35 admin/settings-page.php:58
+msgid "Web autogestionable"
+msgstr "Self-managed website"
+
+#: includes/shortcode.php:36 admin/settings-page.php:59
+msgctxt "tipo de proyecto dentro del titular"
+msgid "autogestionable"
+msgstr "self-managed"
+
+#: includes/shortcode.php:39 admin/settings-page.php:62
+msgid "Web corporativa"
+msgstr "Corporate website"
+
+#: includes/shortcode.php:40 admin/settings-page.php:63
+msgctxt "tipo de proyecto dentro del titular"
+msgid "corporativa"
+msgstr "corporate"
+
+#: includes/shortcode.php:43 admin/settings-page.php:66
+msgid "Tienda online"
+msgstr "Online store"
+
+#: includes/shortcode.php:44 admin/settings-page.php:67
+msgctxt "tipo de proyecto dentro del titular"
+msgid "tienda online"
+msgstr "online store"
+
+#: includes/shortcode.php:56 admin/settings-page.php:74
+msgid "Lenguajes"
+msgstr "Languages"
+
+#: includes/shortcode.php:58 admin/settings-page.php:76
+msgid "HTML5"
+msgstr ""
+
+#: includes/shortcode.php:59 admin/settings-page.php:77
+msgid "CSS3"
+msgstr ""
+
+#: includes/shortcode.php:60 admin/settings-page.php:78
+msgid "JavaScript"
+msgstr ""
+
+#: includes/shortcode.php:61 admin/settings-page.php:79
+msgid "TypeScript"
+msgstr ""
+
+#: includes/shortcode.php:65 admin/settings-page.php:83
+msgid "Frameworks y Librerías"
+msgstr "Frameworks and Libraries"
+
+#: includes/shortcode.php:67 admin/settings-page.php:85
+msgid "TailwindCSS"
+msgstr ""
+
+#: includes/shortcode.php:68 admin/settings-page.php:86
+msgid "Bootstrap"
+msgstr ""
+
+#: includes/shortcode.php:69 admin/settings-page.php:87
+msgid "React"
+msgstr ""
+
+#: includes/shortcode.php:70 admin/settings-page.php:88
+msgid "VueJS"
+msgstr ""
+
+#: includes/shortcode.php:71 admin/settings-page.php:89
+msgid "Laravel"
+msgstr ""
+
+#: includes/shortcode.php:75 admin/settings-page.php:93
+msgid "CMS y E-commerce"
+msgstr "CMS and E-commerce"
+
+#: includes/shortcode.php:77 admin/settings-page.php:95
+msgid "WordPress"
+msgstr ""
+
+#: includes/shortcode.php:78 admin/settings-page.php:96
+msgid "Diseño a medida"
+msgstr "Custom design"
+
+#: includes/shortcode.php:79 admin/settings-page.php:97
+msgid "Desarrollo a medida"
+msgstr "Custom development"
+
+#: includes/shortcode.php:80 admin/settings-page.php:98
+msgid "Prestashop"
+msgstr ""
+
+#: includes/shortcode.php:81 admin/settings-page.php:99
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/shortcode.php:85 admin/settings-page.php:103
+msgid "Herramientas y Otros"
+msgstr "Tools and Others"
+
+#: includes/shortcode.php:87 admin/settings-page.php:105
+msgid "Git"
+msgstr ""
+
+#: includes/shortcode.php:88 admin/settings-page.php:106
+msgid "Figma"
+msgstr ""
+
+#: includes/shortcode.php:89 admin/settings-page.php:107
+msgid "Webpack"
+msgstr ""
+
+#: includes/shortcode.php:90 admin/settings-page.php:108
+msgid "APIs REST"
+msgstr ""
+
+#: includes/shortcode.php:91 admin/settings-page.php:109
+msgid "APIs SOAP"
+msgstr ""
+
+#: includes/shortcode.php:108
+#, php-format
+msgid "Diseño y desarrollo web %1$s para %2$s"
+msgstr "%1$s web design and development for %2$s"
+
+#: includes/shortcode.php:152
+msgid "Logo Empresa"
+msgstr "Company logo"
+
+#: includes/shortcode.php:156
+msgid "Un equipo de expertos en diseño web y marketing digital"
+msgstr "A team of experts in web design and digital marketing"
+
+#: includes/page-creator.php:37
+msgid "No tienes permisos para crear o actualizar páginas."
+msgstr "You do not have permission to create or update pages."
+
+#: includes/page-creator.php:55
+msgid "No tienes permisos para editar esta página."
+msgstr "You do not have permission to edit this page."
+
+#: includes/page-creator.php:64
+msgid "No tienes permisos para crear páginas."
+msgstr "You do not have permission to create pages."
+
+#: includes/page-creator.php:84
+msgid "No tienes permisos suficientes."
+msgstr "You do not have sufficient permissions."
+
+#: includes/page-creator.php:92
+msgid "Error de seguridad. Por favor, recarga la página."
+msgstr "Security error. Please reload the page."
+
+#: includes/page-creator.php:138
+msgid "Datos guardados y página actualizada correctamente."
+msgstr "Settings saved and page updated successfully."
+
+#: admin/settings-page.php:17
+msgid "Lo sentimos, no tienes permisos para acceder a esta página."
+msgstr "Sorry, you are not allowed to access this page."
+
+#: admin/settings-page.php:30
+msgid "Error de seguridad al procesar el formulario. Por favor, recarga la página."
+msgstr "Security error while processing the form. Please reload the page."
+
+#: admin/settings-page.php:126
+msgid "Configuración"
+msgstr "Settings"
+
+#: admin/settings-page.php:129
+msgid "Actualizaciones"
+msgstr "Updates"
+
+#: admin/settings-page.php:139
+msgid "Configuración de la Página de Créditos"
+msgstr "Credits Page Settings"
+
+#: admin/settings-page.php:140
+msgid "Personaliza el contenido que se mostrará en tu página de créditos."
+msgstr "Customise the content shown on your credits page."
+
+#: admin/settings-page.php:145
+msgid "Nombre del cliente"
+msgstr "Client name"
+
+#: admin/settings-page.php:154
+msgid "Descripción"
+msgstr "Description"
+
+#: admin/settings-page.php:167
+msgid "Describe el proyecto o los créditos que quieres mostrar."
+msgstr "Describe the project or the credits you want to display."
+
+#: admin/settings-page.php:174
+msgid "¿Qué tipo de proyecto es?"
+msgstr "What kind of project is it?"
+
+#: admin/settings-page.php:175
+msgid "Selecciona el tipo de proyecto que representa:"
+msgstr "Select the type of project it represents:"
+
+#: admin/settings-page.php:191
+msgid "Características Técnicas"
+msgstr "Technical Features"
+
+#: admin/settings-page.php:192
+msgid "Selecciona las características técnicas utilizadas en el proyecto:"
+msgstr "Select the technical features used in the project:"
+
+#: admin/settings-page.php:223
+msgid "La página de Créditos ya existe."
+msgstr "The Credits page already exists."
+
+#: admin/settings-page.php:224
+msgid "Ver página"
+msgstr "View page"
+
+#: admin/settings-page.php:225
+msgid "Editar página"
+msgstr "Edit page"
+
+#: admin/settings-page.php:228
+msgid "Actualizar Página de Créditos"
+msgstr "Update Credits Page"
+
+#: admin/settings-page.php:230
+msgid "La página de Créditos aún no existe."
+msgstr "The Credits page does not exist yet."
+
+#: admin/settings-page.php:232
+msgid "Crear Página de Créditos"
+msgstr "Create Credits Page"
+
+#: admin/settings-page.php:242
+msgid "Gestión de Actualizaciones"
+msgstr "Update Management"
+
+#: admin/settings-page.php:243
+msgid "Configuración para actualizar este plugin desde GitHub."
+msgstr "Settings to update this plugin from GitHub."

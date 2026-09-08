@@ -1,0 +1,13 @@
+<wpml-config>
+    <!--
+        Expone en WPML > Traducción de cadenas el contenido que el admin guarda en
+        `invbit_credits_options`. Sin esto la opción es única para todo el sitio y
+        el shortcode devuelve el mismo texto en todos los idiomas (el último guardado).
+    -->
+    <admin-texts>
+        <key name="invbit_credits_options">
+            <key name="title" />
+            <key name="description" />
+        </key>
+    </admin-texts>
+</wpml-config>
