@@ -32,16 +32,16 @@ function invbit_credits_shortcode($atts) {
     // Project type labels
     $project_type_labels = [
         'web_autogestionable' => [
-          'label' => 'Web autogestionable',
-          'description' => 'autogestionable'
+          'label' => __('Web autogestionable', 'invbit-credits'),
+          'description' => _x('autogestionable', 'tipo de proyecto dentro del titular', 'invbit-credits')
         ],
         'web_corporativa' => [
-          'label' => 'Web corporativa',
-          'description' => 'corporativa'
+          'label' => __('Web corporativa', 'invbit-credits'),
+          'description' => _x('corporativa', 'tipo de proyecto dentro del titular', 'invbit-credits')
         ],
         'tienda_online' => [
-          'label' => 'Tienda online',
-          'description' => 'tienda online'
+          'label' => __('Tienda online', 'invbit-credits'),
+          'description' => _x('tienda online', 'tipo de proyecto dentro del titular', 'invbit-credits')
         ]
     ];
     
@@ -53,20 +53,43 @@ function invbit_credits_shortcode($atts) {
     // Feature categories structure
     $feature_categories = [
         'languages' => [
-            'title' => 'Lenguajes',
-            'items' => ['HTML5', 'CSS3', 'JavaScript', 'TypeScript']
+            'title' => __('Lenguajes', 'invbit-credits'),
+            'items' => [
+                'HTML5'      => __('HTML5', 'invbit-credits'),
+                'CSS3'       => __('CSS3', 'invbit-credits'),
+                'JavaScript' => __('JavaScript', 'invbit-credits'),
+                'TypeScript' => __('TypeScript', 'invbit-credits'),
+            ]
         ],
         'frameworks' => [
-            'title' => 'Frameworks y Librerías',
-            'items' => ['TailwindCSS', 'Bootstrap', 'React', 'VueJS', 'Laravel']
+            'title' => __('Frameworks y Librerías', 'invbit-credits'),
+            'items' => [
+                'TailwindCSS' => __('TailwindCSS', 'invbit-credits'),
+                'Bootstrap'   => __('Bootstrap', 'invbit-credits'),
+                'React'       => __('React', 'invbit-credits'),
+                'VueJS'       => __('VueJS', 'invbit-credits'),
+                'Laravel'     => __('Laravel', 'invbit-credits'),
+            ]
         ],
         'cms' => [
-            'title' => 'CMS y E-commerce',
-            'items' => ['WordPress', 'Diseño a medida', 'Desarrollo a medida', 'Prestashop', 'WooCommerce']
+            'title' => __('CMS y E-commerce', 'invbit-credits'),
+            'items' => [
+                'WordPress'            => __('WordPress', 'invbit-credits'),
+                'Diseño a medida'      => __('Diseño a medida', 'invbit-credits'),
+                'Desarrollo a medida'  => __('Desarrollo a medida', 'invbit-credits'),
+                'Prestashop'           => __('Prestashop', 'invbit-credits'),
+                'WooCommerce'          => __('WooCommerce', 'invbit-credits'),
+            ]
         ],
         'tools' => [
-            'title' => 'Herramientas y Otros',
-            'items' => ['Git', 'Figma', 'Webpack', 'APIs REST', 'APIs SOAP']
+            'title' => __('Herramientas y Otros', 'invbit-credits'),
+            'items' => [
+                'Git'       => __('Git', 'invbit-credits'),
+                'Figma'     => __('Figma', 'invbit-credits'),
+                'Webpack'   => __('Webpack', 'invbit-credits'),
+                'APIs REST' => __('APIs REST', 'invbit-credits'),
+                'APIs SOAP' => __('APIs SOAP', 'invbit-credits'),
+            ]
         ]
     ];
     
@@ -79,9 +102,13 @@ function invbit_credits_shortcode($atts) {
             <section class="invbit-credits-column invbit-credits-left">
                 <h2 class="invbit-credits-title">
                     <?php 
-                        echo sprintf(
-                            'Diseño y desarrollo web <span class="invbit-credits-project-type-label">%s</span> para %s', 
-                            esc_html($project_type_labels[$options['project_type']]['description']), 
+                        printf(
+                            /* translators: 1: tipo de proyecto, 2: nombre del cliente */
+                            wp_kses(
+                                __('Diseño y desarrollo web %1$s para %2$s', 'invbit-credits'),
+                                ['span' => ['class' => []]]
+                            ),
+                            '<span class="invbit-credits-project-type-label">' . esc_html($project_type_labels[$options['project_type']]['description']) . '</span>',
                             esc_html($options['title'])
                         ); 
                     ?>
@@ -94,17 +121,17 @@ function invbit_credits_shortcode($atts) {
                 <section class="invbit-credits-features">
                     <ul class="invbit-credits-feature-list">
                         <?php foreach ($feature_categories as $category_key => $category) : ?>
-                            <?php foreach ($category['items'] as $item) : 
-                                $item_key = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $item));
-                                error_log('Item: ' . $item . ' | Item Key: ' . $item_key);
-                                error_log('Category: ' . $category_key . ' | Features: ' . print_r($options['features'][$category_key], true));
+                            <?php foreach ($category['items'] as $item_source => $item_label) : 
+                                // La clave se calcula siempre desde la cadena original, nunca desde la
+                                // traducida: si no, al cambiar de idioma dejaría de casar con lo guardado.
+                                $item_key = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $item_source));
                                 $is_checked = isset($options['features'][$category_key]) && 
                                               is_array($options['features'][$category_key]) &&
                                               in_array($item_key, $options['features'][$category_key], true);
                                 if ($is_checked) :
                                 ?>
                                     <li class="invbit-credits-feature-item">
-                                        <?php echo esc_html($item); ?>
+                                        <?php echo esc_html($item_label); ?>
                                     </li>
                                 <?php endif; ?>
                             <?php endforeach; ?>

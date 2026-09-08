@@ -55,36 +55,59 @@ function invbit_credits_settings_page() {
     // Project types
     $project_types = [
         'web_autogestionable' => [
-            'label' => 'Web autogestionable',
-            'description' => 'autogestionable'
+            'label' => __('Web autogestionable', 'invbit-credits'),
+            'description' => _x('autogestionable', 'tipo de proyecto dentro del titular', 'invbit-credits')
         ],
         'web_corporativa' => [
-            'label' => 'Web corporativa',
-            'description' => 'corporativa'
+            'label' => __('Web corporativa', 'invbit-credits'),
+            'description' => _x('corporativa', 'tipo de proyecto dentro del titular', 'invbit-credits')
         ],
         'tienda_online' => [
-            'label' => 'Tienda online',
-            'description' => 'tienda online'
+            'label' => __('Tienda online', 'invbit-credits'),
+            'description' => _x('tienda online', 'tipo de proyecto dentro del titular', 'invbit-credits')
         ]
     ];
     
     // Define feature categories
     $feature_categories = [
         'languages' => [
-            'title' => 'Lenguajes',
-            'items' => ['HTML5', 'CSS3', 'JavaScript', 'TypeScript']
+            'title' => __('Lenguajes', 'invbit-credits'),
+            'items' => [
+                'HTML5'      => __('HTML5', 'invbit-credits'),
+                'CSS3'       => __('CSS3', 'invbit-credits'),
+                'JavaScript' => __('JavaScript', 'invbit-credits'),
+                'TypeScript' => __('TypeScript', 'invbit-credits'),
+            ]
         ],
         'frameworks' => [
-            'title' => 'Frameworks y Librerías',
-            'items' => ['TailwindCSS', 'Bootstrap', 'React', 'VueJS', 'Laravel']
+            'title' => __('Frameworks y Librerías', 'invbit-credits'),
+            'items' => [
+                'TailwindCSS' => __('TailwindCSS', 'invbit-credits'),
+                'Bootstrap'   => __('Bootstrap', 'invbit-credits'),
+                'React'       => __('React', 'invbit-credits'),
+                'VueJS'       => __('VueJS', 'invbit-credits'),
+                'Laravel'     => __('Laravel', 'invbit-credits'),
+            ]
         ],
         'cms' => [
-            'title' => 'CMS y E-commerce',
-            'items' => ['WordPress', 'Diseño a medida', 'Desarrollo a medida', 'Prestashop', 'WooCommerce']
+            'title' => __('CMS y E-commerce', 'invbit-credits'),
+            'items' => [
+                'WordPress'            => __('WordPress', 'invbit-credits'),
+                'Diseño a medida'      => __('Diseño a medida', 'invbit-credits'),
+                'Desarrollo a medida'  => __('Desarrollo a medida', 'invbit-credits'),
+                'Prestashop'           => __('Prestashop', 'invbit-credits'),
+                'WooCommerce'          => __('WooCommerce', 'invbit-credits'),
+            ]
         ],
         'tools' => [
-            'title' => 'Herramientas y Otros',
-            'items' => ['Git', 'Figma', 'Webpack', 'APIs REST', 'APIs SOAP']
+            'title' => __('Herramientas y Otros', 'invbit-credits'),
+            'items' => [
+                'Git'       => __('Git', 'invbit-credits'),
+                'Figma'     => __('Figma', 'invbit-credits'),
+                'Webpack'   => __('Webpack', 'invbit-credits'),
+                'APIs REST' => __('APIs REST', 'invbit-credits'),
+                'APIs SOAP' => __('APIs SOAP', 'invbit-credits'),
+            ]
         ]
     ];
     
@@ -173,8 +196,9 @@ function invbit_credits_settings_page() {
                             <div class="invbit-credits-feature-category">
                                 <h3><?php echo esc_html($category['title']); ?></h3>
                                 <div class="invbit-credits-feature-items">
-                                    <?php foreach ($category['items'] as $item) : 
-                                        $item_key = sanitize_key($item);
+                                    <?php foreach ($category['items'] as $item_source => $item_label) : 
+                                        // Clave desde la cadena original: el valor guardado no puede depender del idioma.
+                                        $item_key = sanitize_key($item_source);
                                         $is_checked = isset($options['features'][$category_key]) && 
                                                       is_array($options['features'][$category_key]) &&
                                                       in_array($item_key, $options['features'][$category_key], true);
@@ -184,7 +208,7 @@ function invbit_credits_settings_page() {
                                                    name="invbit_credits_features[<?php echo esc_attr($category_key); ?>][]" 
                                                    value="<?php echo esc_attr($item_key); ?>"
                                                    <?php checked($is_checked, true); ?>>
-                                            <?php echo esc_html($item); ?>
+                                            <?php echo esc_html($item_label); ?>
                                         </label>
                                     <?php endforeach; ?>
                                 </div>

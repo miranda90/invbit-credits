@@ -3,10 +3,11 @@
  * Plugin Name: Invbit Credits
  * Plugin URI: https://invbit.com
  * Description: Plugin para generar una página de créditos mediante shortcode
- * Version: 1.0.8
+ * Version: 1.0.9
  * Author: Invbit
  * Author URI: https://invbit.com
  * Text Domain: invbit-credits
+ * Domain Path: /languages
  */
 
 // Direct access prevention
@@ -17,7 +18,7 @@ if (!defined('ABSPATH')) {
 // Constants
 define('INVBIT_CREDITS_PATH', plugin_dir_path(__FILE__));
 define('INVBIT_CREDITS_URL', plugin_dir_url(__FILE__));
-define('INVBIT_CREDITS_VERSION', '1.0.8');
+define('INVBIT_CREDITS_VERSION', '1.0.9');
 define('INVBIT_CREDITS_CAPABILITY', 'manage_options');
 define('INVBIT_CREDITS_SLUG', 'diseno-web');
 
@@ -43,6 +44,17 @@ if (class_exists('Invbit_Plugin_Updater')) {
         'github_repo' => $github_repo,
         'github_api_key' => $github_token,
     ));
+}
+
+// Load translations on init: WPML/Polylang ya han fijado el idioma en este punto,
+// hacerlo antes (plugins_loaded) cachea el locale del backend y mezcla los idiomas.
+add_action('init', 'invbit_credits_load_textdomain');
+function invbit_credits_load_textdomain() {
+    load_plugin_textdomain(
+        'invbit-credits',
+        false,
+        dirname(plugin_basename(__FILE__)) . '/languages'
+    );
 }
 
 // Plugin activation
